@@ -13,9 +13,6 @@
     <packaging>jar</packaging>
     <name>SimpleDB Server</name>
 
-    <properties>
-        <rmiregistry.jar>${project.build.outputDirectory}${file.separator}${project.build.finalName}.${project.packaging}</rmiregistry.jar>
-    </properties>
     <build>
         <plugins>
             <plugin>
