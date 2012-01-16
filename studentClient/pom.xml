@@ -18,7 +18,6 @@
         <dependency>
             <groupId>simpleDB</groupId>
             <artifactId>server</artifactId>
-            <!--<classifier>client</classifier>-->
             <version>2.8-SNAPSHOT</version>
         </dependency>
     </dependencies>
