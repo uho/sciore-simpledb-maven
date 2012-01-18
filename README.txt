@@ -1,3 +1,31 @@
+This is a reorganization of SimpleDB by Edward Sciore (sciore@bc.edu). I
+have made some changes to the Startup code and moved a bunch of stuff. If
+you want to see the pristine code for his 2.8 release, check out the
+"SimpleDB-2.8" tag.
+
+
+I've made the following changes:
+    * Deleted the derby materials found originally in studentClient
+    * Refactored simpledb.server.Startup to handle the RMI Registry.
+      - it now permits binding to ports other than 1099. Be careful.
+    * Moved the studentClient code under the server code as test examples.
+      - No, I didn't JUnit them up. They make bad unit tests due to
+        sequence dependencies between them.
+    * Organized everything as a multi-module maven project.
+      - Yes, I'm aware it only has one sub-module. No, that wasn't an
+        accident. Remember that whole binding to other ports thing?
+        Yeah, so you can hack up the code as a sibling module, run them
+        in parallel, and benchmark things.
+    * Added Windows batch and Unix shell scripts for launching the default
+      server on the default port.
+
+Don't shoot yourself in the foot with this and then come looking for help
+from me. As Prof. Sciore placed no explicit license on SimpleDB 2.8 that
+I could find, any derivate work on my part is GPLv3.
+
+--------------------------------------------------------------------------
+Original README.TXT:
+--------------------------------------------------------------------------
                       THE SIMPLEDB DATABASE SYSTEM
                   General Information and Instructions
 
@@ -257,7 +285,7 @@ V. SimpleDB Limitations
    Connection
 
       public Statement createStatement();
-	  public void      close();
+        public void      close();
 
    Statement
 
