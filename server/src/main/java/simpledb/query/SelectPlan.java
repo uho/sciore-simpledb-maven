@@ -62,9 +62,15 @@ public class SelectPlan implements Plan {
    public int distinctValues(String fldname) {
       if (pred.equatesWithConstant(fldname) != null)
          return 1;
-      else
-         return Math.min(p.distinctValues(fldname),
-                         recordsOutput());
+      else {
+         String fldname2 = pred.equatesWithField(fldname);
+         if (fldname2 != null) 
+            return Math.min(p.distinctValues(fldname),
+                            p.distinctValues(fldname2));
+         else
+            return Math.min(p.distinctValues(fldname),
+                            recordsOutput());
+      }
    }
    
    /**

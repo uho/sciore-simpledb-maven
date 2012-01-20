@@ -15,7 +15,7 @@ import simpledb.index.btree.BTreeIndex; //in case we change to btree indexing
  * This information is used by the query planner in order to
  * estimate the costs of using the index,
  * and to obtain the schema of the index records.
- * It's methods are essentially the same as those of Plan.
+ * Its methods are essentially the same as those of Plan.
  * @author Edward Sciore
  */
 public class IndexInfo {
@@ -62,7 +62,8 @@ public class IndexInfo {
     * @return the number of block accesses required to traverse the index
     */
    public int blocksAccessed() {
-      int rpb = BLOCK_SIZE / ti.recordLength();
+      TableInfo idxti = new TableInfo("", schema());
+      int rpb = BLOCK_SIZE / idxti.recordLength();
       int numblocks = si.recordsOutput() / rpb;
       // Call HashIndex.searchCost for hash indexing
       return HashIndex.searchCost(numblocks, rpb);
