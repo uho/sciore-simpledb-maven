@@ -43,6 +43,7 @@ public class SortScan implements Scan {
     * @see simpledb.query.Scan#beforeFirst()
     */
    public void beforeFirst() {
+      currentscan = null;
       s1.beforeFirst();
       hasmore1 = s1.next();
       if (s2 != null) {
@@ -132,7 +133,7 @@ public class SortScan implements Scan {
     */
    public void savePosition() {
       RID rid1 = s1.getRid();
-      RID rid2 = s2.getRid();
+      RID rid2 = (s2 == null) ? null : s2.getRid();
       savedposition = Arrays.asList(rid1,rid2);
    }
    
@@ -143,6 +144,7 @@ public class SortScan implements Scan {
       RID rid1 = savedposition.get(0);
       RID rid2 = savedposition.get(1);
       s1.moveToRid(rid1);
-      s2.moveToRid(rid2);
+      if (rid2 != null)
+         s2.moveToRid(rid2);
    }
 }
