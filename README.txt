@@ -1,8 +1,13 @@
+Update: I've incorporated the changes from SimpleDB-2.9. There are now
+tags for SimpleDB-2.8 and SimpleDB-2.9 and a branch for the original
+release.
+
 This is a reorganization of SimpleDB by Edward Sciore (sciore@bc.edu). I
 have made some changes to the Startup code and moved a bunch of stuff. If
 you want to see the pristine code for his 2.8 release, check out the
 "SimpleDB-2.8" tag.
 
+--------------------------------------------------------------------------
 
 I've made the following changes:
     * Deleted the derby materials found originally in studentClient
@@ -41,19 +46,18 @@ This document contains the following sections:
 
 I. Release Notes:
 
-  This release of the SimpleDB system is Version 2.8, which was
-  uploaded on August 1, 2009.  This release provides the following
-  bug fixes to Version 2.7:
+  This release of the SimpleDB system is Version 2.9, which was
+  uploaded on August 1, 2011.  This release provides the following
+  bug fixes to Version 2.8:
 
-    * In RecoveryMgr.java, the doRecover method no longer
-      undoes rolled-back transactions.
-    * In LogMgr.java, the iterator method is now synchronized.
-    * In SetIntRecord.java, the toString method now prints
-      "SETINT" (instead of "SETSTRING").
-    * In RemoteResultSetImpl.java, the methods next, setInt,
-      and setString now roll back the transaction when
-      an exception occurs (in order to satisfy the requirements
-      of autocommit mode).
+    * In SortScan.java, the method beforeFirst now sets the variable
+      currentscan to null.
+    * In SortScan.java, the methods savePosition and restorePosition
+      now handle the possibility that s2 is null.
+    * In SelectPlan.java, the method distinctValues now works for
+      predicates of the form A=B as well as A=c.
+    * In IndexInfo.java, the method blocksAccessed now uses the size
+      of the index record instead of the size of the data record.
 
   SimpleDB is distributed in a WinZip-formatted file. This file contains
   four items:
@@ -171,7 +175,7 @@ III. Running the Server:
 
 IV. Running Client Programs 
 
-  The SimpleDB server accepts connections any JDBC client. The client
+  The SimpleDB server accepts connections from any JDBC client. The client
   program makes its connection via the following code:
             Driver d = new SimpleDriver();
             String host = "mymachine.com"; //any DNS name or IP address
@@ -186,12 +190,6 @@ IV. Running Client Programs
   program will not run unless this package in its classpath. Note that
   you could install the entire SimpleDB server code on a client machine,
   but that is overkill.  All you need is simpledb.remote.
-  
-  Each client program provided with SimpleDB connects to the database 
-  server located at "localhost".  If the client is to be run from a 
-  different machine than the server, then its source code must be 
-  modified so that localhost is replaced by the domain name 
-  (or IP address) of the server machine.
 
   The studentClient folder contains client code for a simple university
   student-course database.  The folder contains two subfolders, named 
@@ -223,9 +221,10 @@ IV. Running Client Programs
       It is the only client that updates the database (although you can 
       use SQLInterpreter to run update commands).
 
-  These clients connect to the server at "localhost"; if the server is
-  located on a different machine, then you need to change the connection
-  URL appropriately. 
+  These clients connect to the server at "localhost".  If the client is  
+  to be run from a different machine than the server, then its source code 
+  must be modified so that localhost is replaced by the domain name (or IP 
+  address) of the server machine. 
   
   Unlike the server classes, the client classes are not part of an 
   explicit package, and thus they need to be run from the directory that
@@ -265,7 +264,7 @@ V. SimpleDB Limitations
   a query must be disjoint.  And because there are no group by or order by
   clauses, grouping and sorting are not supported.  Other restrictions:
 
-    * The “*” abbreviation in the select clause is not supported.
+    * The "*" abbreviation in the select clause is not supported.
     * There are no null values.
     * There are no explicit joins or outer joins in the from clause.
     * The union and except keywords are not supported.
@@ -285,7 +284,7 @@ V. SimpleDB Limitations
    Connection
 
       public Statement createStatement();
-        public void      close();
+      public void      close();
 
    Statement
 
