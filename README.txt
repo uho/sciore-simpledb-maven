@@ -11,6 +11,8 @@ I've made the following changes:
     * Deleted the derby materials found originally in studentClient
     * Refactored simpledb.server.Startup to handle the RMI Registry.
       - it now permits binding to ports other than 1099. Be careful.
+      - As of 2.10, Prof. Sciore has modified Startup to progammatically
+        bind the RMI Registry on 1099. This version is more flexible.
     * Moved the studentClient code under the server code as test examples.
       - No, I didn't JUnit them up. They make bad unit tests due to
         sequence dependencies between them.
