@@ -1,7 +1,7 @@
 package simpledb.remote;
 
 import java.sql.*;
-import java.rmi.*;
+import java.rmi.registry.*;
 import java.util.Properties;
 
 /**
@@ -26,8 +26,9 @@ public class SimpleDriver extends DriverAdapter {
     */
    public Connection connect(String url, Properties prop) throws SQLException {
       try {
-         String newurl = url.replace("jdbc:simpledb", "rmi") + "/simpledb";
-         RemoteDriver rdvr = (RemoteDriver) Naming.lookup(newurl);
+         String host = url.replace("jdbc:simpledb://", "");  //assumes no port specified
+         Registry reg = LocateRegistry.getRegistry(host);
+         RemoteDriver rdvr = (RemoteDriver) reg.lookup("simpledb");
          RemoteConnection rconn = rdvr.connect();
          return new SimpleConnection(rconn);
       }

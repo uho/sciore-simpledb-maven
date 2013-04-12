@@ -770,4 +770,12 @@ public abstract class ResultSetAdapter implements ResultSet {
    public <T> T unwrap(Class<T> iface) throws SQLException {
       throw new SQLException("operation not implemented");
    }
+   
+   public <T> T getObject(int columnIndex, Class<T> type) throws SQLException {
+      throw new SQLException("operation not implemented");
+   }
+   
+   public <T> T getObject(String columnLabel, Class<T> type) throws SQLException {
+      throw new SQLException("operation not implemented");
+   }
 }
