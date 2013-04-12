@@ -174,4 +174,12 @@ public abstract class StatementAdapter implements Statement {
    public <T> T unwrap(Class<T> iface) throws SQLException {
       throw new SQLException("operation not implemented");
    }
-}
+   
+   public void closeOnCompletion() throws SQLException {
+      throw new SQLException("operation not implemented");
+   }
+   
+   public boolean isCloseOnCompletion() throws SQLException {
+      throw new SQLException("operation not implemented");
+   }
+ }

@@ -2,6 +2,7 @@ package simpledb.remote;
 
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * This class implements all of the methods of the Driver interface,
@@ -33,5 +34,9 @@ public abstract class DriverAdapter implements Driver {
    
    public boolean jdbcCompliant() {
       return false;
+   }
+   
+   public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+      throw new SQLFeatureNotSupportedException("operation not implemented");
    }
 }

@@ -90,6 +90,19 @@ public class BTreeLeaf {
     * @return the directory entry of the newly-split page, if one exists.
     */
    public DirEntry insert(RID datarid) {
+   	// bug fix:  If the page has an overflow page 
+   	// and the searchkey of the new record would be lowest in its page, 
+   	// we need to first move the entire contents of that page to a new block
+   	// and then insert the new record in the now-empty current page.
+   	if (contents.getFlag() >= 0 && contents.getDataVal(0).compareTo(searchkey) > 0) {
+   		Constant firstval = contents.getDataVal(0);
+   		Block newblk = contents.split(0, contents.getFlag());
+   		currentslot = 0;
+   		contents.setFlag(-1);
+   		contents.insertLeaf(currentslot, searchkey, datarid); 
+   		return new DirEntry(firstval, newblk.number());  
+   	}
+	  
       currentslot++;
       contents.insertLeaf(currentslot, searchkey, datarid);
       if (!contents.isFull())

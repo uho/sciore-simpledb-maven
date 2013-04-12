@@ -13,18 +13,18 @@ This document contains the following sections:
 
 I. Release Notes:
 
-  This release of the SimpleDB system is Version 2.9, which was
-  uploaded on August 1, 2011.  This release provides the following
-  bug fixes to Version 2.8:
+  This release of the SimpleDB system is Version 2.10, which was
+  uploaded on January 16, 2013.  This release provides the following
+  fixes to Version 2.10:
 
-    * In SortScan.java, the method beforeFirst now sets the variable
-      currentscan to null.
-    * In SortScan.java, the methods savePosition and restorePosition
-      now handle the possibility that s2 is null.
-    * In SelectPlan.java, the method distinctValues now works for
-      predicates of the form A=B as well as A=c.
-    * In IndexInfo.java, the method blocksAccessed now uses the size
-      of the index record instead of the size of the data record.
+    * The files simpledb.Startup and remote.SimpleDriver have been changed 
+      to use a server-specific registry, instead of forcing the user to 
+      run rmiregistry as a separate process.
+    * The files ConnectionAdapter, DriverAdapter, StatementAdapter, and 
+      ResultSetAdapter in simpledb.remote have been changed to handle
+      the new Java 7 JDBC methods.
+    * A bug was fixed in the file SortScan.java.
+    * The new client file StudentMajorNoServer was added.
 
   SimpleDB is distributed in a WinZip-formatted file. This file contains
   four items:
@@ -98,27 +98,17 @@ III. Running the Server:
   each on possibly different machines. You can then run a client program
   from any machine that is able to connect to the host machine.
 
-  To run the SimpleDB server, you need to execute two programs:
-
-  1)  Run the rmiregistry program (which is part of your Java SDK 
-      distribution) as a separate process.  In UNIX, this means executing
-      the command:
-             > rmiregistry & 
-             
-      In Windows, this means executing the command:
-             > start rmiregistry
-
-  2)  Run Java on the simpledb.server.Startup class.  You must pass in
-      the name of a folder that SimpleDB will use to hold the database.
-      For example in Windows, if you execute the command:
+  To run the SimpleDB server, run Java on the simpledb.server.Startup class.  
+  You must pass in the name of a folder that SimpleDB will use to hold the 
+  database. For example in Windows, if you execute the command:
       
-             > start java simpledb.server.Startup studentdb
+         > start java simpledb.server.Startup studentdb
              
-      then the server will run in a new window, using studentdb as the
-      database folder.  You can execute this command from any directory;
-      the server will always use the studentdb folder that exists in your
-      home directory.  If a folder with that name does not exist, then
-      one will be created automatically.
+  then the server will run in a new window, using studentdb as the
+  database folder.  You can execute this command from any directory;
+  the server will always use the studentdb folder that exists in your
+  home directory.  If a folder with that name does not exist, then
+  one will be created automatically.
  
   If everything is working correctly, when you run the server with a
   new database folder the following will be printed in the server’s 

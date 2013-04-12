@@ -2,6 +2,7 @@ package simpledb.remote;
 
 import java.sql.*;
 import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * This class implements all of the methods of the Connection interface,
@@ -204,4 +205,24 @@ public abstract class ConnectionAdapter implements Connection {
    public <T> T unwrap(Class<T> iface) throws SQLException {
       throw new SQLException("operation not implemented");
    }
+   
+   public void abort(Executor executor) throws SQLException {
+      throw new SQLException("operation not implemented");
+   }
+   
+  	public int getNetworkTimeout()	 throws SQLException {
+      throw new SQLException("operation not implemented");
+   }
+  	
+  	public String getSchema() throws SQLException {
+      throw new SQLException("operation not implemented");
+   }
+  	
+  	public void setNetworkTimeout(Executor executor, int milliseconds) throws SQLException {
+      throw new SQLException("operation not implemented");
+   }
+  	
+  	public void setSchema(String schema) throws SQLException {
+      throw new SQLException("operation not implemented");
+   }   
 }
